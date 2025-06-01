@@ -1,13 +1,6 @@
 # MAVL: Zero-shot Lung Disease Detection
 
-This project implements the paper "Zero-shot Lung Disease Detection Using Radiological Symptomatic Descriptors and Pretrained Neural Networks" by Ahmed et al. (MDPI, 2025).
-
-## Paper
-**Title:** Zero-shot Lung Disease Detection Using Radiological Symptomatic Descriptors and Pretrained Neural Networks  
-**Authors:** Sabbir Ahmed, Md. Abdul Hamid, Muhammad Mostafa Monowar, Mohammad Abu Yousuf  
-**Journal:** Journal Not Specified 2025, 1,0. (As per citation)
-**DOI:** [https://doi.org/ (To be updated with actual DOI)](https://doi.org/)
-**arXiv/PDF Link:** (Link to the paper, e.g., from the user prompt)
+This project implements the paper "Zero-shot Lung Disease Detection Using Radiological Symptomatic Descriptors and Pretrained Neural Networks" .
 
 ## Overview
 The project aims to reproduce the Multi-Aspect Vision-Language (MAVL) framework for detecting lung diseases from chest X-rays, with a focus on zero-shot learning capabilities. The model integrates a Vision Transformer (ViT) for visual features, ClinicalBERT for textual report embeddings, a dual-head fusion mechanism (contrastive and supervised), and a neural memory module for test-time adaptation.
