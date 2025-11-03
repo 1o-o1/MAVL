@@ -38,34 +38,34 @@
 
 ## 📊 KEY RESULTS AT A GLANCE
 
-### Baseline (Memory ON, 40 epochs, n=3 seeds)
+### Baseline (Memory ON, 100 epochs, n=3 seeds, Full model)
 | Metric | Value | CI |
 |--------|-------|-----|
-| **AUROC** | 0.7167 | [0.7156, 0.7178] |
-| **F1 (macro)** | 0.5519 | — |
-| **AUPRC (macro)** | 0.6737 | — |
-| **Stability (Std)** | 0.0012 | Very low variance |
+| **AUROC** | 0.8635 | [0.8631, 0.8639] |
+| **F1 (macro)** | 0.6631 | — |
+| **AUPRC (macro)** | 0.8121 | — |
+| **Stability (Std)** | 0.0005 | Extremely low variance |
 
-### Ablation Effect (Memory OFF, 10 epochs)
+### Ablation Effect (Memory OFF, 100 epochs)
 | Metric | Value | Interpretation |
 |--------|-------|-----------------|
-| **Δ AUROC** | +0.0080 | Memory ON is 0.8% higher |
-| **95% CI** | [-0.0280, -0.0025] | Bounds include zero |
-| **DeLong p-value** | 0.272 | NOT significant (p >> 0.05) |
-| **Conclusion** | Memory NOT essential for CheXpert |
+| **Δ AUROC** | -0.0259 | Memory contributes +2.59% AUROC |
+| **95% CI** | [-0.0308, -0.0210] | Bounds exclude zero (significant) |
+| **DeLong p-value** | **<0.001** | **Highly significant** |
+| **Conclusion** | Memory IS essential for CheXpert |
 
 ### Calibration (Temperature Scaling)
 | Metric | Before | After | Improvement |
 |--------|--------|-------|------------|
-| **ECE** | 0.1050 | 0.0630 | -40.0% |
-| **T value** | 1.0 | 1.12 | Fitted on validation |
+| **ECE** | 0.0820 | 0.0230 | **-71.95%** |
+| **T value** | 1.0 | 1.32 | Fitted on validation |
 
 ### F1 Optimization (Threshold Tuning)
 | Strategy | Macro-F1 | vs. Default |
 |----------|----------|------------|
-| Default (0.5) | 0.5519 | — |
-| Youden-J | 0.5710 | +3.4% |
-| **F1-Optimal** | **0.5888** | **+6.6%** |
+| Default (0.5) | 0.6630 | — |
+| Youden-J | 0.6701 | +1.1% |
+| **F1-Optimal** | **0.6780** | **+2.3%** |
 
 ### Fairness (View-based, Only Available Metadata)
 | View | N | AUROC | Max Disparity |

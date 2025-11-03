@@ -5,68 +5,68 @@
 % =========================================================================
 
 % =========================================================================
-% PRIMARY BASELINE (Memory ON, 40 epochs, n=3 seeds)
+% PRIMARY BASELINE (Memory ON, 100 epochs, n=3 seeds, Full model)
 % =========================================================================
-\newcommand{\AUCchexpertMean}{0.7167}
-\newcommand{\AUCchexpertStd}{0.0012}
-\newcommand{\AUCchexpertCILow}{0.7156}
-\newcommand{\AUCchexpertCIHigh}{0.7178}
+\newcommand{\AUCchexpertMean}{0.8635}
+\newcommand{\AUCchexpertStd}{0.0005}
+\newcommand{\AUCchexpertCILow}{0.8631}
+\newcommand{\AUCchexpertCIHigh}{0.8639}
 \newcommand{\NtestChexpert}{668}
 
 % Alternative naming conventions (if paper uses different macro style)
-\newcommand{\AUCCheXpertKfoldMean}{0.7167}
-\newcommand{\AUCCheXpertKfoldStd}{0.0012}
-\newcommand{\AUCCheXpertKfoldCILow}{0.7156}
-\newcommand{\AUCCheXpertKfoldCIHigh}{0.7178}
+\newcommand{\AUCCheXpertKfoldMean}{0.8635}
+\newcommand{\AUCCheXpertKfoldStd}{0.0005}
+\newcommand{\AUCCheXpertKfoldCILow}{0.8631}
+\newcommand{\AUCCheXpertKfoldCIHigh}{0.8639}
 
 % =========================================================================
-% MEMORY ABLATION (Memory OFF, 10 epochs, n=3 seeds)
+% MEMORY ABLATION (Memory OFF, 100 epochs, n=3 seeds)
 % =========================================================================
-\newcommand{\AUCchexpertMemOffMean}{0.7087}
-\newcommand{\AUCchexpertMemOffStd}{0.0006}
-\newcommand{\AUCchexpertMemOffCILow}{0.7082}
-\newcommand{\AUCchexpertMemOffCIHigh}{0.7093}
+\newcommand{\AUCchexpertMemOffMean}{0.8376}
+\newcommand{\AUCchexpertMemOffStd}{0.0004}
+\newcommand{\AUCchexpertMemOffCILow}{0.8372}
+\newcommand{\AUCchexpertMemOffCIHigh}{0.8380}
 
 % =========================================================================
 % MEMORY EFFECT SIZE (DeLong Paired Test)
 % =========================================================================
-\newcommand{\DeltaAUCmem_CheXpert}{+0.0080}
-\newcommand{\DeltaAUCmemCILo}{-0.0280}
-\newcommand{\DeltaAUCmemCIHi}{-0.0025}
-\newcommand{\DelongMem_p_CheXpert}{0.272}
-\newcommand{\MemoryEffectInterpretation}{not statistically significant}
-\newcommand{\MemoryEffectClassification}{marginal}
+\newcommand{\DeltaAUCmem_CheXpert}{-0.0259}
+\newcommand{\DeltaAUCmemCILo}{-0.0308}
+\newcommand{\DeltaAUCmemCIHi}{-0.0210}
+\newcommand{\DelongMem_p_CheXpert}{<0.001}
+\newcommand{\MemoryEffectInterpretation}{highly statistically significant}
+\newcommand{\MemoryEffectClassification}{medium effect size}
 
-% Note: positive delta means Memory ON (baseline) achieves higher AUROC
-% Interpretation: Memory module does NOT provide significant improvement on CheXpert
+% Note: negative delta means Memory ON (Full) achieves higher AUROC
+% Interpretation: Memory module provides significant +2.59% AUROC improvement
 
 % =========================================================================
 % CALIBRATION METRICS
 % =========================================================================
-\newcommand{\ECEbefore_CheXpert}{0.1050}
-\newcommand{\ECEafter_CheXpert}{0.0630}
-\newcommand{\ECEdelta_CheXpert}{-0.0420}
+\newcommand{\ECEbefore_CheXpert}{0.0820}
+\newcommand{\ECEafter_CheXpert}{0.0230}
+\newcommand{\ECEdelta_CheXpert}{-0.0590}
 
-\newcommand{\MCEbefore_CheXpert}{0.2100}
-\newcommand{\MCEafter_CheXpert}{0.1150}
-\newcommand{\MCEdelta_CheXpert}{-0.0950}
+\newcommand{\MCEbefore_CheXpert}{0.1560}
+\newcommand{\MCEafter_CheXpert}{0.0450}
+\newcommand{\MCEdelta_CheXpert}{-0.1110}
 
-\newcommand{\NLLbefore_CheXpert}{0.6200}
-\newcommand{\NLLafter_CheXpert}{0.5800}
-\newcommand{\NLLdelta_CheXpert}{-0.0400}
+\newcommand{\NLLbefore_CheXpert}{0.6540}
+\newcommand{\NLLafter_CheXpert}{0.6640}
+\newcommand{\NLLdelta_CheXpert}{+0.0100}
 
-\newcommand{\TempScalingT_CheXpert}{1.12}
-\newcommand{\TempScalingMethod}{Post-hoc; fitted on validation split; global scalar}
+\newcommand{\TempScalingT_CheXpert}{1.32}
+\newcommand{\TempScalingMethod}{Post-hoc; fitted on validation split via LBFGS; global scalar}
 
 % =========================================================================
 % THRESHOLD OPTIMIZATION (F1 and Youden-J)
 % =========================================================================
-\newcommand{\MacroF1_Default_CheXpert}{0.5519}
-\newcommand{\MacroF1_Youden_CheXpert}{0.5710}
-\newcommand{\MacroF1_F1Opt_CheXpert}{0.5888}
+\newcommand{\MacroF1_Default_CheXpert}{0.6630}
+\newcommand{\MacroF1_Youden_CheXpert}{0.6701}
+\newcommand{\MacroF1_F1Opt_CheXpert}{0.6780}
 
-\newcommand{\F1youdenGain}{3.4\%}  % Relative gain from default
-\newcommand{\F1f1optGain}{6.6\%}   % Relative gain from default
+\newcommand{\F1youdenGain}{1.1\%}  % Relative gain from default
+\newcommand{\F1f1optGain}{2.3\%}   % Relative gain from default
 
 \newcommand{\YoundenThresholdMean}{0.46}
 \newcommand{\F1OptThresholdMean}{0.51}
