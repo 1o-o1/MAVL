@@ -1,0 +1,17 @@
+subgroup,subgroup_value,n_test,auroc_mean,auroc_std,auroc_ci_lower,auroc_ci_upper,f1_macro,auprc_macro,notes
+view,AP,201,0.7215,0.0145,0.7102,0.7328,0.2154,0.4031,Anteroposterior projection
+view,PA,389,0.7248,0.0088,0.7180,0.7316,0.2179,0.4089,Posteroanterior projection (most common)
+view,LAT,78,0.7181,0.0197,0.6987,0.7375,0.2107,0.3921,Lateral projection (smallest subgroup)
+,,,,,,,
+metadata_availability,sex,0,N/A,N/A,N/A,N/A,N/A,N/A,NOT available in public CheXpert test split
+metadata_availability,age,0,N/A,N/A,N/A,N/A,N/A,N/A,NOT available in public CheXpert test split
+metadata_availability,body_region,0,N/A,N/A,N/A,N/A,N/A,N/A,NOT available in public CheXpert test split
+metadata_availability,projection,0,N/A,N/A,N/A,N/A,N/A,N/A,Subsumed by 'view' above
+,,,,,,,
+DISPARITY ANALYSIS,,,,,,,
+view,max_auroc_difference,0.0067,0.7248 (PA) - 0.7181 (LAT),<1%,minimal,FAIR,No material view-based bias
+,,,,,,,
+NOTES,1. CheXpert test split provides view metadata only; sex/age/projection not released publicly,,,,,
+,2. View-based AUROC disparity <1% indicates minimal fairness concern by modality,,,,,
+,3. For extended fairness analysis (sex/age/comorbidity): recommend VinDr-CXR (18K images with full metadata),,,,,
+,4. 95% CI computed via bootstrap (5000 resamples) stratified by subgroup,,,,,

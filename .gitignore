@@ -1,0 +1,112 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# PyCharm
+.pytest_cache/
+.coverage
+
+# Large files (keep data directories but not raw data)
+*.pth
+*.pt
+*.ckpt
+*.pkl
+data/*.zip
+data/raw/
+
+# Experiment logs (keep only final results)
+logs/
+*.log
+ablation_training*.log
+*_training.log
+
+# Results (keep only results/chexpert/ for GitHub)
+archive/
+results_full_scale*/
+results_real/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Research-specific
+*.ipynb_checkpoints
+notebook_*.py
+
+# Local config
+local_config.yaml
+config.local.yaml
+.env
+credentials.json
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Old status/session files (archived, exclude from repo)
+SESSION_*.md
+*_STATUS*.txt
+*_STATUS*.md
+
+# CheXpert raw data (large, not included)
+CheXpert-v1.0*/
+*.jpg
+*.png
+!results/chexpert/explainability/chexpert_gradcam_grid.png
+!experiments/results/chexpert/explainability/chexpert_gradcam_grid.png
+
+# Keep only analysis results
+!/experiments/results/chexpert/
+!/results/chexpert/

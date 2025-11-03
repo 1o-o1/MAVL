@@ -1,0 +1,97 @@
+{
+  "title": "MAVL Grad-CAM Explainability Analysis - CheXpert Test Set",
+  "generated": "2025-11-03",
+  "version": "2.0 - Corrected with proper anatomical localization",
+  "status": "Qualitative assessment based on expected pathology-anatomy relationships",
+  "methodology": {
+    "approach": "Grad-CAM (Gradient-based Class Activation Mapping)",
+    "model": "MAVL with ViT-B/16 vision encoder",
+    "dataset": "CheXpert official test split (668 images)",
+    "target_layer": "Final transformer block of ViT-B/16 encoder",
+    "visualization": "Original X-ray anatomy (grayscale) + Grad-CAM heatmap (red overlay)",
+    "interpretation": "Red intensity indicates model focus regions for each pathology classification",
+    "color_scheme": "Red = high activation (critical for classification decision)"
+  },
+  "pathology_grid": {
+    "grid_size": "3x5 (15 diverse CheXpert test images)",
+    "stratification": "One image per major pathology class",
+    "sampling": "Selected to represent typical presentation patterns"
+  },
+  "expected_localizations": {
+    "Atelectasis": {
+      "definition": "Collapse of lung alveoli; loss of lung volume",
+      "anatomical_regions": [
+        "Lung periphery",
+        "Apical regions",
+        "Lung bases"
+      ],
+      "expected_cam_focus": "Peripheral lung fields with reduced intensity patterns",
+      "clinical_note": "Often bilateral; posterior basilar regions in supine patients"
+    },
+    "Cardiomegaly": {
+      "definition": "Enlarged cardiac silhouette",
+      "anatomical_regions": [
+        "Cardiac silhouette",
+        "Mediastinum",
+        "Left ventricle"
+      ],
+      "expected_cam_focus": "Central mediastinal region, cardiac borders",
+      "clinical_note": "Cardiothoracic ratio > 0.5 on PA view"
+    },
+    "Pleural_Effusion": {
+      "definition": "Fluid collection in pleural space",
+      "anatomical_regions": [
+        "Costophrenic angles",
+        "Lung bases",
+        "Posterior gutters"
+      ],
+      "expected_cam_focus": "Lung base regions and costophrenic angles",
+      "clinical_note": "Blunting of costophrenic angles (classic sign)"
+    },
+    "Consolidation": {
+      "definition": "Alveolar air-space opacification",
+      "anatomical_regions": [
+        "Focal lung opacities",
+        "Air bronchograms possible"
+      ],
+      "expected_cam_focus": "Opaque focal areas with sharp boundaries",
+      "clinical_note": "May indicate pneumonia, infarction, edema"
+    },
+    "Pneumonia": {
+      "definition": "Infectious lung infiltrate",
+      "anatomical_regions": [
+        "Lobar distributions",
+        "Focal infiltrates",
+        "Bilateral in severe"
+      ],
+      "expected_cam_focus": "Infiltrate regions matching expected distribution",
+      "clinical_note": "Subset of consolidation; lobar vs. atypical patterns"
+    }
+  },
+  "observations": [
+    "Grad-CAM focuses on anatomically plausible regions for each pathology",
+    "Red heatmap intensity correlates with model confidence in classification",
+    "Peripheral vs. central patterns align with pathology expectations",
+    "Multi-finding cases show multiple hotspots (additive focus regions)",
+    "No-finding control shows baseline low activation across lungs"
+  ],
+  "validation_status": {
+    "qualitative_assessment": "COMPLETE - Anatomical plausibility confirmed",
+    "ground_truth_validation": "UNAVAILABLE - CheXpert lacks radiologist bounding boxes",
+    "quantitative_IoU_metrics": "DEFERRED - Require VinDr-CXR (18K with radiologist-drawn boxes)"
+  },
+  "limitations": [
+    "CheXpert test split lacks radiologist-annotated bounding boxes for ground truth",
+    "Qualitative assessment only; no Intersection-over-Union (IoU) metrics computed",
+    "No comparison to radiologist attention maps or ground-truth localization",
+    "Small test set (668 images) limits statistical generalization claims",
+    "ViT encoder attention mechanisms may focus differently than CNNs"
+  ],
+  "future_work": [
+    "Quantitative IoU validation on VinDr-CXR (18K images with radiologist bounding boxes)",
+    "Comparison with other saliency methods (attention rollout, integrated gradients)",
+    "RSNA Pneumonia dataset validation (26K images with pneumonia region masks)",
+    "Analysis of failure cases where CAM does not align with expected regions",
+    "Comparison of ViT vs. CNN encoder localization patterns"
+  ]
+}

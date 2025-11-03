@@ -1,0 +1,285 @@
+================================================================================
+GITHUB UPLOAD INSTRUCTIONS FOR MAVL PROJECT
+================================================================================
+
+Repository: https://github.com/1o-o1/MAVL
+Target Branch: main or feature/chexpert-comprehensive-eval
+
+Date: 2025-11-03
+Status: Ready for upload
+
+================================================================================
+STEP 1: PREPARE REPOSITORY
+================================================================================
+
+1.1 Create or clone the repository locally:
+    git clone https://github.com/1o-o1/MAVL.git
+    cd MAVL
+
+1.2 Copy the following files to repository root:
+    - GITHUB_UPLOAD_README.md -> rename to README.md
+    - requirements.txt
+    - LICENSE
+    - .gitignore
+
+1.3 Create directory structure:
+    mkdir -p experiments/results/chexpert
+    mkdir -p experiments/results/chexpert/calibration
+    mkdir -p experiments/results/chexpert/subgroups
+    mkdir -p experiments/results/chexpert/explainability
+
+================================================================================
+STEP 2: COPY EXPERIMENT RESULTS
+================================================================================
+
+Copy all files from local results/chexpert/ to experiments/results/chexpert/:
+
+    COPY TO: experiments/results/chexpert/
+
+    Core deliverables:
+    - MAVL_CHEXPERT_COMPREHENSIVE_REPORT.md
+    - reviewer_response_draft.md
+    - DELIVERABLES_SUMMARY.md
+    - FINAL_DELIVERABLES_MANIFEST.txt
+    - macros_chexpert.tex
+    - ablation_mem_summary.csv
+    - delong_mem.json
+    - prevalence.csv
+
+    COPY TO: experiments/results/chexpert/calibration/
+    - calibration.json
+    - thresholds.csv
+
+    COPY TO: experiments/results/chexpert/subgroups/
+    - metrics_by_group.csv
+
+    COPY TO: experiments/results/chexpert/explainability/
+    - chexpert_gradcam_grid.png
+    - gradcam_metadata.json
+
+================================================================================
+STEP 3: COPY SOURCE CODE
+================================================================================
+
+Essential Python files to include:
+
+    COPY TO: . (repository root)
+    - mavl-train.py (main training script)
+    - full_scale_training_corrected.py (baseline)
+    - full_scale_training_ablation_fast.py (ablation)
+    - delong_statistical_analysis.py (statistics)
+
+    COPY TO: models/ (create if needed)
+    - Vit.py (Vision Transformer)
+    - resnet.py (ResNet encoder)
+    - mavl.py (MAVL model if exists)
+
+    COPY TO: utils/ (create if needed)
+    - data_proc.py (data preprocessing)
+
+    COPY TO: losses/ (create if needed)
+    - [any loss function files]
+
+================================================================================
+STEP 4: VERIFY GIT SETUP
+================================================================================
+
+4.1 Initialize git (if not already cloned):
+    git init
+    git remote add origin https://github.com/1o-o1/MAVL.git
+
+4.2 Add .gitignore:
+    Copy .gitignore to repository root
+
+4.3 Configure git:
+    git config user.name "Your Name"
+    git config user.email "your.email@example.com"
+
+================================================================================
+STEP 5: STAGE FILES
+================================================================================
+
+Add all files:
+    git add .
+
+Review what will be committed:
+    git status
+
+Expected files to commit:
+    - README.md (from GITHUB_UPLOAD_README.md)
+    - requirements.txt
+    - LICENSE
+    - .gitignore
+    - experiments/results/chexpert/*.md
+    - experiments/results/chexpert/*.csv
+    - experiments/results/chexpert/*.json
+    - experiments/results/chexpert/*.tex
+    - experiments/results/chexpert/*.png
+    - experiments/results/chexpert/**/*.csv
+    - experiments/results/chexpert/**/*.json
+    - [Source Python files]
+
+================================================================================
+STEP 6: COMMIT AND PUSH
+================================================================================
+
+6.1 Create initial commit:
+    git commit -m "Initial commit: MAVL CheXpert comprehensive evaluation
+
+    - Baseline model: AUROC 0.7232 (95% CI: [0.7221, 0.7243])
+    - Memory ablation: DeLong p=0.272 (NOT significant)
+    - Calibration: ECE improved 40% via temperature scaling (T=1.12)
+    - Fairness: View-based disparity <1% (minimal bias)
+    - F1 optimization: +6.6% improvement via per-class thresholds
+    - Complete statistical analysis with multi-seed robustness (n=3 seeds)
+    - Documentation: Comprehensive report, reviewer responses, LaTeX macros"
+
+6.2 Push to GitHub:
+    git branch -M main
+    git push -u origin main
+
+    OR (if updating existing repo):
+    git push origin [branch-name]
+
+================================================================================
+STEP 7: VERIFY GITHUB UPLOAD
+================================================================================
+
+7.1 Check GitHub repository:
+    https://github.com/1o-o1/MAVL
+
+7.2 Verify files appear:
+    - README.md (main landing page)
+    - requirements.txt
+    - LICENSE
+    - .gitignore
+    - experiments/results/chexpert/ (all analysis files)
+    - [Source code files]
+
+7.3 Check GitHub Actions (if configured):
+    Ensure tests pass if CI/CD is enabled
+
+================================================================================
+STEP 8: CREATE GITHUB RELEASE (Optional)
+================================================================================
+
+If creating a release:
+
+    git tag -a v0.1.0 -m "MAVL v0.1.0: CheXpert comprehensive evaluation complete
+
+    - Memory ablation analysis with DeLong significance testing
+    - Calibration analysis and temperature scaling
+    - Per-class threshold optimization
+    - Fairness assessment by available metadata
+    - Grad-CAM explainability (qualitative)
+    - Complete statistical rigor with multi-seed validation
+    - Ready for manuscript submission"
+
+    git push origin v0.1.0
+
+================================================================================
+FILES TO EXCLUDE FROM GIT
+================================================================================
+
+The .gitignore file excludes:
+    - __pycache__/ and *.pyc files
+    - venv/ and virtual environments
+    - *.log (training logs)
+    - CheXpert-v1.0*/ (large dataset - not included)
+    - results_full_scale*/ (archived, not needed in repo)
+    - Model checkpoints (*.pt, *.pth) - too large
+
+EXCEPTION:
+    - results/chexpert/*.png files ARE included (Grad-CAM grid)
+    - experiments/results/chexpert/*.json and *.csv ARE included (analysis)
+
+================================================================================
+IMPORTANT NOTES
+================================================================================
+
+1. LARGE FILES:
+   - CheXpert dataset should NOT be included (use .gitignore)
+   - Model checkpoints should NOT be included (too large)
+   - Training logs archived and excluded
+
+2. DATA:
+   - Raw CheXpert images: Obtained from https://stanfordmlgroup.github.io/competitions/chexpert/
+   - Preprocessed data: Instructions in data/ directory
+   - Analysis results: ALL included in experiments/results/chexpert/
+
+3. REPRODUCIBILITY:
+   - requirements.txt contains all dependencies
+   - Random seeds documented: 42, 123, 456
+   - Training scripts use same hyperparameters as paper
+   - DeLong test implementation documented
+
+4. FUTURE UPDATES:
+   - Next commit: MIMIC-CXR results (results_mimic_cxr/)
+   - Following: VinDr-CXR results (results_vindrcxr/)
+   - Final: Multi-dataset comparison and extended fairness analysis
+
+5. DOCUMENTATION:
+   - README.md: Overview and usage
+   - experiments/results/chexpert/MAVL_CHEXPERT_COMPREHENSIVE_REPORT.md: Detailed analysis
+   - experiments/results/chexpert/reviewer_response_draft.md: Reviewer concerns addressed
+   - experiments/results/chexpert/FINAL_DELIVERABLES_MANIFEST.txt: Complete file guide
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Issue: "fatal: not a git repository"
+Solution: Run "git init" first, then add remote
+
+Issue: Large file rejection
+Solution: Check .gitignore - CheXpert images and checkpoints should be excluded
+
+Issue: Path too long (Windows)
+Solution: Enable long paths in git:
+    git config --global core.longpaths true
+
+Issue: Permission denied
+Solution: Ensure repository ownership and SSH keys configured correctly
+
+================================================================================
+COMMAND CHEAT SHEET
+================================================================================
+
+# Initialize new repo
+git init
+git remote add origin https://github.com/1o-o1/MAVL.git
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git push -u origin main
+
+# Update existing repo
+git add .
+git commit -m "Update: [description]"
+git push origin main
+
+# Create release tag
+git tag -a v0.1.0 -m "Release message"
+git push origin v0.1.0
+
+# View status
+git status
+git log --oneline | head -10
+
+================================================================================
+ESTIMATED TIME
+================================================================================
+
+- Repository setup: 5 minutes
+- File copying: 2 minutes
+- Git configuration: 3 minutes
+- Commit and push: 2 minutes
+- GitHub verification: 2 minutes
+
+TOTAL: ~15 minutes
+
+================================================================================
+Generated: 2025-11-03
+Status: READY FOR GITHUB UPLOAD
+Next: Multi-dataset extension (MIMIC-CXR, VinDr-CXR)
+================================================================================

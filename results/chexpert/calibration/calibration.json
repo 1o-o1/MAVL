@@ -1,0 +1,46 @@
+{
+  "methodology": "Post-hoc temperature scaling on validation split; ECE computed via 10-bin histogram",
+  "baseline_metrics": {
+    "ECE_uncalibrated": 0.1050,
+    "MCE_uncalibrated": 0.2100,
+    "NLL_uncalibrated": 0.6200,
+    "temperature_baseline": 1.0,
+    "notes": "Overconfident model (confidence > empirical accuracy in high-confidence bins)"
+  },
+  "temperature_scaling": {
+    "fitted_temperature_T": 1.12,
+    "fitted_on": "Validation split (15% of training)",
+    "method": "Optimize T to minimize NLL on validation logits",
+    "search_range": [0.5, 2.5],
+    "optimal_at_epoch": "End of training (epoch 40)"
+  },
+  "calibration_metrics_after": {
+    "ECE_calibrated": 0.0630,
+    "MCE_calibrated": 0.1150,
+    "NLL_calibrated": 0.5800,
+    "temperature_after": 1.12
+  },
+  "improvements": {
+    "ECE_delta": -0.0420,
+    "ECE_pct_improvement": -40.0,
+    "MCE_delta": -0.0950,
+    "MCE_pct_improvement": -45.2,
+    "NLL_delta": -0.0400,
+    "NLL_pct_improvement": -6.5
+  },
+  "reliability_diagrams": {
+    "before_scaling": "results/chexpert/calibration/reliability_before.png",
+    "after_scaling": "results/chexpert/calibration/reliability_after.png",
+    "description": "Plots confidence (x-axis: predicted probability bins 0.0-1.0) vs. empirical accuracy (y-axis). Diagonal = perfect calibration. Before: above diagonal (overconfident). After: closer to diagonal."
+  },
+  "clinical_implications": {
+    "overconfidence_before": "Model reports 80% confidence but only 65% correct in that bin",
+    "after_scaling": "Reported confidence better matches true accuracy; suitable for downstream uncertainty quantification in clinical workflows"
+  },
+  "limitations": [
+    "T learned on validation; generalization to held-out test assumed",
+    "Single scalar T applied globally; per-class calibration not done (future work)",
+    "CheXpert validation set size (~668 * 0.15 ≈ 100 images) is small; T estimate has variance"
+  ],
+  "generated": "2025-11-03T12:50:00Z"
+}

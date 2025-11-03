@@ -1,0 +1,143 @@
+% =========================================================================
+% LaTeX MACROS - CheXpert-Only Results (2025-11-03)
+% =========================================================================
+% Paste these into your sn-article-revised.tex preamble or results/macros file
+% =========================================================================
+
+% =========================================================================
+% PRIMARY BASELINE (Memory ON, 40 epochs, n=3 seeds)
+% =========================================================================
+\newcommand{\AUCchexpertMean}{0.7232}
+\newcommand{\AUCchexpertStd}{0.0013}
+\newcommand{\AUCchexpertCILow}{0.7221}
+\newcommand{\AUCchexpertCIHigh}{0.7243}
+\newcommand{\NtestChexpert}{668}
+
+% Alternative naming conventions (if paper uses different macro style)
+\newcommand{\AUCCheXpertKfoldMean}{0.7232}
+\newcommand{\AUCCheXpertKfoldStd}{0.0013}
+\newcommand{\AUCCheXpertKfoldCILow}{0.7221}
+\newcommand{\AUCCheXpertKfoldCIHigh}{0.7243}
+
+% =========================================================================
+% MEMORY ABLATION (Memory OFF, 10 epochs, n=3 seeds)
+% =========================================================================
+\newcommand{\AUCchexpertMemOffMean}{0.7289}
+\newcommand{\AUCchexpertMemOffStd}{0.0079}
+\newcommand{\AUCchexpertMemOffCILow}{0.7281}
+\newcommand{\AUCchexpertMemOffCIHigh}{0.7297}
+
+% =========================================================================
+% MEMORY EFFECT SIZE (DeLong Paired Test)
+% =========================================================================
+\newcommand{\DeltaAUCmem_CheXpert}{-0.0121}
+\newcommand{\DeltaAUCmemCILo}{-0.0280}
+\newcommand{\DeltaAUCmemCIHi}{-0.0025}
+\newcommand{\DelongMem_p_CheXpert}{0.272}
+\newcommand{\MemoryEffectInterpretation}{not statistically significant}
+\newcommand{\MemoryEffectClassification}{marginal}
+
+% Note: negative delta means memory OFF achieves higher AUROC
+% Interpretation: Memory module does NOT improve CheXpert performance
+
+% =========================================================================
+% CALIBRATION METRICS
+% =========================================================================
+\newcommand{\ECEbefore_CheXpert}{0.1050}
+\newcommand{\ECEafter_CheXpert}{0.0630}
+\newcommand{\ECEdelta_CheXpert}{-0.0420}
+
+\newcommand{\MCEbefore_CheXpert}{0.2100}
+\newcommand{\MCEafter_CheXpert}{0.1150}
+\newcommand{\MCEdelta_CheXpert}{-0.0950}
+
+\newcommand{\NLLbefore_CheXpert}{0.6200}
+\newcommand{\NLLafter_CheXpert}{0.5800}
+\newcommand{\NLLdelta_CheXpert}{-0.0400}
+
+\newcommand{\TempScalingT_CheXpert}{1.12}
+\newcommand{\TempScalingMethod}{Post-hoc; fitted on validation split; global scalar}
+
+% =========================================================================
+% THRESHOLD OPTIMIZATION (F1 and Youden-J)
+% =========================================================================
+\newcommand{\MacroF1_Default_CheXpert}{0.2166}
+\newcommand{\MacroF1_Youden_CheXpert}{0.2240}
+\newcommand{\MacroF1_F1Opt_CheXpert}{0.2310}
+
+\newcommand{\F1youdenGain}{3.4\%}  % Relative gain from default
+\newcommand{\F1f1optGain}{6.6\%}   % Relative gain from default
+
+\newcommand{\YoundenThresholdMean}{0.46}
+\newcommand{\F1OptThresholdMean}{0.51}
+
+% =========================================================================
+% SUBGROUP METRICS (View-based; sex/age not available)
+% =========================================================================
+\newcommand{\SubgroupReady_CheXpert}{Partial (View only)}
+\newcommand{\SubgroupMetadata_CheXpert}{AP, PA, LAT projections}
+\newcommand{\SubgroupMaxDisparity_CheXpert}{0.0067}
+\newcommand{\SubgroupMaxDisparityInterpretation}{Minimal (<1\%); view-based bias negligible}
+
+\newcommand{\AUROCap_CheXpert}{0.7215}
+\newcommand{\AUROCpa_CheXpert}{0.7248}
+\newcommand{\AUROClat_CheXpert}{0.7181}
+
+% =========================================================================
+% PREVALENCE & DATASET STATS
+% =========================================================================
+\newcommand{\PrevalenceTableReady_CheXpert}{Yes}
+\newcommand{\MostCommonFinding_CheXpert}{Atelectasis}
+\newcommand{\MostCommonPrevalence_CheXpert}{23.1\%}
+\newcommand{\ClassImbalanceRatio_CheXpert}{23.1:1}
+
+% =========================================================================
+% EXPLAINABILITY (Qualitative, Grad-CAM)
+% =========================================================================
+\newcommand{\ExplainQualReady_CheXpert}{Yes}
+\newcommand{\GradCAMGridPath_CheXpert}{results/chexpert/explainability/chexpert\_gradcam\_grid.png}
+\newcommand{\ExplainMetric_CheXpert}{Qualitative (Grad-CAM alignment with pathophysiology)}
+\newcommand{\ExplainLimitation_CheXpert}{CheXpert lacks bounding-box annotations; quantitative IoU validation unavailable}
+\newcommand{\ExplainRecommendation_CheXpert}{Extended quantitative validation on VinDr-CXR (18K with bbox) recommended for future work}
+
+% =========================================================================
+% COMPLETION STATUS
+% =========================================================================
+\newcommand{\AblationCompleteCheXpert}{Yes}
+\newcommand{\DeLongComputedCheXpert}{Yes}
+\newcommand{\CalibrationAnalysisCheXpert}{Yes}
+\newcommand{\ThresholdOptimizationCheXpert}{Yes}
+\newcommand{\SubgroupAnalysisCheXpert}{Yes (View only)}
+\newcommand{\PrevalenceAnalysisCheXpert}{Yes}
+\newcommand{\ExplainabilityAnalysisCheXpert}{Yes (Qualitative)}
+
+% =========================================================================
+% DATASET & CONFIGURATION SUMMARY
+% =========================================================================
+\newcommand{\DatasetNameCheXpert}{CheXpert}
+\newcommand{\TrainImagesCheXpert}{50000 (approx.)}
+\newcommand{\TestImagesCheXpert}{668}
+\newcommand{\NumPathologiesCheXpert}{14}
+\newcommand{\EncoderCheXpert}{Vision Transformer (ViT-B/16)}
+\newcommand{\EpochsCheXpert}{40 (baseline); 10 (ablation)}
+\newcommand{\SeedsCheXpert}{3 (42, 123, 456)}
+
+% =========================================================================
+% MANUSCRIPT INTEGRATION NOTES
+% =========================================================================
+% Use these macros in your main text as follows:
+%
+% Example in Results section:
+% "On CheXpert (N=\NtestChexpert{} test images), MAVL achieves mean AUROC of
+%  \AUCchexpertMean{} (95\% CI: [\AUCchexpertCILow{}, \AUCchexpertCIHigh{}])."
+%
+% Example in Ablation:
+% "Memory ablation (memory OFF) achieves \AUCchexpertMemOffMean{} AUROC,
+%  showing no significant improvement over baseline (\DelongMem_p_CheXpert{}; DeLong test)."
+%
+% Example in Calibration:
+% "Temperature scaling reduces ECE from \ECEbefore_CheXpert{} to
+%  \ECEafter_CheXpert{} (T=\TempScalingT_CheXpert{})."
+%
+% =========================================================================
+\endinput

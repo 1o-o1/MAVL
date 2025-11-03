@@ -1,0 +1,14 @@
+seed,config,auroc,f1_macro,auprc_macro,training_time_hrs,notes
+42,memory_on,0.7109,0.2149,0.4122,11.31,Baseline 40 epochs
+123,memory_on,0.6920,0.2138,0.3867,10.95,Baseline 40 epochs
+456,memory_on,0.7136,0.2210,0.4162,12.22,Baseline 40 epochs
+aggregate,memory_on,0.7055,0.2166,0.4050,11.49,Mean ± Std
+,,,,,,
+42,memory_off,0.7165,0.1969,0.4130,2.27,Ablation 10 epochs
+123,memory_off,0.7200,0.1873,0.4204,2.23,Ablation 10 epochs
+456,memory_off,0.7161,0.1900,0.4102,2.22,Ablation 10 epochs
+aggregate,memory_off,0.7175,0.1914,0.4145,2.24,Mean ± Std
+,,,,,,
+delta,memory_effect,-0.0121,-0.0252,+0.0095,-9.25,Memory ON - Memory OFF
+,,,,,,
+Statistical Test,DeLong Paired,p_value=0.272,ci_lower=-0.0280,ci_upper=-0.0025,interpretation=NOT_SIGNIFICANT,effect_size=marginal

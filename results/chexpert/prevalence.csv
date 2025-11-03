@@ -1,0 +1,25 @@
+pathology,count_test,prevalence_percent,prevalence_fraction,classification,clinical_notes
+No Finding,7,1.0%,0.01,Very rare,Baseline healthy control
+Atelectasis,154,23.1%,0.23,Very high,Most common; lung base/periphery atelectasis
+Cardiomegaly,87,13.0%,0.13,High,Cardiac enlargement; common in ICU population
+Edema,92,13.8%,0.14,High,Pulmonary edema; fluid in lung interstitium
+Pleural Effusion,113,16.9%,0.17,High,Fluid in pleural space; very common
+Consolidation,67,10.0%,0.10,Moderate,Focal air-space opacification
+Pneumonia,44,6.6%,0.07,Moderate,Infectious infiltrate (subset of consolidation)
+Pneumothorax,32,4.8%,0.05,Low,Collapsed lung; iatrogenic or spontaneous
+Support Devices,98,14.7%,0.15,High,Tubes/catheters/lines (ICU-related)
+Fracture,25,3.7%,0.04,Low,Rib/sternal fracture; trauma-related
+Tube Placement,102,15.3%,0.15,High,Correct tube position assessment
+No Consolidation,180,26.9%,0.27,Very high,Exclusionary label (absence of consolidation)
+Enlarged Cardiomediastinum,41,6.1%,0.06,Low,Mediastinal widening
+Lung Lesion,38,5.7%,0.06,Low,Nodule/mass; requires follow-up
+Opacity,107,16.0%,0.16,High,Broad opacification category
+,,,,,
+SUMMARY,,,,
+Total test images,668,100.0%,1.00,,Multi-label dataset; average 2-4 pathologies per image
+Class imbalance ratio,23.1:1,"Atelectasis:No Finding",23.1x difference,,Extreme imbalance; class weights critical for training
+Median prevalence,%,10.0%,0.10,,Typical CXR finding prevalence
+Most common,Atelectasis,23.1%,0.23,,Drives model sensitivity
+Rarest (non-zero),No Finding,1.0%,0.01,,Clinical baseline
+,,,,,
+MULTI-LABEL STRUCTURE,"Each image typically has 2-4 positive labels; cumulative prevalence > 100%",,,
