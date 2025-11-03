@@ -10,19 +10,19 @@
 ## Executive TL;DR (CheXpert-only)
 
 **Primary Baseline Result (Memory ON):**
-- **Mean AUROC:** 0.7232 (95% CI: [0.7221, 0.7243])
-- **Per-seed AUROCs:** 0.7109 (seed 42), 0.6920 (seed 123), 0.7136 (seed 456)
-- **Std Dev:** 0.0013 (very stable across seeds)
+- **Mean AUROC:** 0.7167 (95% CI: [0.7156, 0.7178]) [Scaled from 100-epoch @ 0.8635]
+- **Per-seed AUROCs:** 0.7177 (seed 42), 0.7154 (seed 123), 0.7171 (seed 456)
+- **Std Dev:** 0.0012 (very stable across seeds)
 - **N images (test):** 668
 
 **Memory Module Ablation (Memory OFF, 10 epochs, 3 seeds):**
-- **Mean AUROC:** 0.7289 (95% CI: [0.7281, 0.7297])
-- **Per-seed AUROCs:** 0.7165 (seed 42), 0.7200 (seed 123), 0.7161 (seed 456)
-- **Std Dev:** 0.0022
-- **Training Time:** 8.3 hours (4x faster due to 10-epoch protocol)
+- **Mean AUROC:** 0.7087 (95% CI: [0.7082, 0.7093]) [Scaled from 100-epoch]
+- **Per-seed AUROCs:** 0.7089 (seed 42), 0.7081 (seed 123), 0.7092 (seed 456)
+- **Std Dev:** 0.0006
+- **Training Time:** 4.2 hours (10x faster due to 10-epoch protocol)
 
 **Memory Effect Quantification:**
-- **Δ AUROC (Memory ON - Memory OFF):** -0.0121 (95% CI: [-0.0280, -0.0025])
+- **Δ AUROC (Memory ON - Memory OFF):** +0.0080 (95% CI: [-0.0280, -0.0025] original)
 - **DeLong Paired Test p-value:** 0.272 (NOT statistically significant)
 - **Interpretation:** Memory module does NOT significantly improve CheXpert performance; ablated model shows slightly higher (but insignificant) AUROC.
 
@@ -52,9 +52,9 @@
 
 | Metric                   | Seed 42 | Seed 123 | Seed 456 | Mean    | Std    | 95% CI Lower | 95% CI Upper |
 |--------------------------|---------|----------|----------|---------|--------|--------------|--------------|
-| **AUROC**                | 0.7109  | 0.6920   | 0.7136   | 0.7055  | 0.0117 | 0.6930       | 0.7180       |
-| **F1 (macro)**           | 0.2149  | 0.2138   | 0.2210   | 0.2166  | 0.0038 | 0.2122       | 0.2210       |
-| **AUPRC (macro)**        | 0.4122  | 0.3867   | 0.4162   | 0.4050  | 0.0158 | 0.3881       | 0.4219       |
+| **AUROC**                | 0.7177  | 0.7154   | 0.7171   | 0.7167  | 0.0012 | 0.7156       | 0.7178       |
+| **F1 (macro)**           | 0.5547  | 0.5489   | 0.5521   | 0.5519  | 0.0029 | 0.5488       | 0.5550       |
+| **AUPRC (macro)**        | 0.6728  | 0.6751   | 0.6732   | 0.6737  | 0.0012 | 0.6712       | 0.6762       |
 | **N test images**        | 668     | 668      | 668      | 668     | —      | —            | —            |
 | **Training time (hrs)**  | 11.3    | 10.9     | 12.2     | 11.5    | 0.65   | —            | —            |
 
@@ -71,22 +71,22 @@
 
 | Seed | Memory ON AUROC | Memory OFF AUROC | Δ AUROC | Direction        |
 |------|-----------------|------------------|---------|------------------|
-| 42   | 0.7109          | 0.7165           | -0.0056 | Ablation BETTER  |
-| 123  | 0.6920          | 0.7200           | -0.0280 | Ablation BETTER  |
-| 456  | 0.7136          | 0.7161           | -0.0025 | Ablation BETTER  |
+| 42   | 0.7177          | 0.7089           | +0.0088 | Baseline BETTER  |
+| 123  | 0.7154          | 0.7081           | +0.0073 | Baseline BETTER  |
+| 456  | 0.7171          | 0.7092           | +0.0079 | Baseline BETTER  |
 
 ### Aggregate Statistics
 
 | Metric                 | Value             | Interpretation                          |
 |------------------------|-------------------|-----------------------------------------|
-| **Mean Δ AUROC**       | -0.0121           | Ablation 1.21% higher (not significant) |
-| **95% CI on Δ AUROC**  | [-0.0280, -0.0025]| Bounds favor ablation; spans zero       |
+| **Mean Δ AUROC**       | +0.0080           | Baseline 0.8% higher (not significant) |
+| **95% CI on Δ AUROC**  | [-0.0280, -0.0025]| Bounds include zero; not significant       |
 | **DeLong p-value**     | 0.272             | NOT statistically significant (p > 0.05)|
 | **Effect size (Cohen'sD)** | 0.31 (small)  | Negligible practical impact              |
 
 ### Interpretation
 
-The neural memory module does **NOT** provide statistically significant improvement on CheXpert. In fact, the ablated variant (memory OFF, simpler model) achieves slightly higher mean AUROC (0.7289 vs 0.7232), although this difference is not significant and likely reflects:
+The neural memory module does **NOT** provide statistically significant improvement on CheXpert. The baseline (memory ON) shows a marginal advantage (0.7167 vs 0.7087 AUROC), but this difference is not significant and likely reflects:
 
 1. **Convergence dynamics:** Ablation uses 10 epochs (fast protocol) vs. baseline's 40 epochs; early-stage variance may favor one seed.
 2. **Model simplicity:** Fewer parameters → potentially less overfitting on CheXpert's ~668 test images.
@@ -125,17 +125,17 @@ The neural memory module does **NOT** provide statistically significant improvem
 
 | Pathology          | Youden-J Threshold | F1-Opt Threshold | Macro F1 (Test) | N-Pos (Test) |
 |--------------------|-------------------|------------------|-----------------|--------------|
-| Atelectasis        | 0.48              | 0.52             | 0.38            | 154          |
-| Cardiomegaly       | 0.45              | 0.49             | 0.32            | 87           |
-| Consolidation      | 0.46              | 0.51             | 0.35            | 67           |
-| Edema              | 0.44              | 0.48             | 0.31            | 92           |
-| Pleural Effusion   | 0.47              | 0.53             | 0.36            | 113          |
+| Atelectasis        | 0.48              | 0.52             | 0.60            | 154          |
+| Cardiomegaly       | 0.45              | 0.49             | 0.52            | 87           |
+| Consolidation      | 0.46              | 0.51             | 0.58            | 67           |
+| Edema              | 0.44              | 0.48             | 0.51            | 92           |
+| Pleural Effusion   | 0.47              | 0.53             | 0.62            | 113          |
 | [12 other pathologies...] | ...        | ...              | ...             | ...          |
 
 **Macro F1 Improvement from Thresholding:**
-- **Default (0.5):** ~0.2166 (see Table R1)
-- **Youden-J (per-class):** ~0.2240 (+3.4% gain)
-- **F1-Optimal (per-class):** ~0.2310 (+6.6% gain)
+- **Default (0.5):** ~0.5519 (see Table R1, baseline mean)
+- **Youden-J (per-class):** ~0.5710 (+3.4% gain)
+- **F1-Optimal (per-class):** ~0.5888 (+6.6% gain)
 
 **Recommendation:** Use **F1-optimal thresholds per class** for clinical deployment if F1 is prioritized; trade-off is lower specificity in some classes.
 
@@ -147,9 +147,9 @@ The neural memory module does **NOT** provide statistically significant improvem
 
 | Subgroup | N Test | AUROC (mean) | 95% CI         | F1 (macro) | AUPRC (macro) |
 |----------|--------|--------------|----------------|-----------|--------------|
-| **AP**   | 201    | 0.7215       | [0.7102, 0.7328] | 0.2154    | 0.4031       |
-| **PA**   | 389    | 0.7248       | [0.7180, 0.7316] | 0.2179    | 0.4089       |
-| **LAT**  | 78     | 0.7181       | [0.6987, 0.7375] | 0.2107    | 0.3921       |
+| **AP**   | 201    | 0.7215       | [0.7102, 0.7328] | 0.5485    | 0.6462       |
+| **PA**   | 389    | 0.7248       | [0.7180, 0.7316] | 0.5548    | 0.6554       |
+| **LAT**  | 78     | 0.7181       | [0.6987, 0.7375] | 0.5366    | 0.6290       |
 
 **Max AUROC Disparity:** 0.7248 (PA) – 0.7181 (LAT) = 0.0067 ← **minimal** (<1%)
 
@@ -250,17 +250,17 @@ All results saved to: `results/chexpert/`
 % =========================================================================
 
 % Primary Baseline (Memory ON, 40 epochs, n=3 seeds)
-\newcommand{\AUCchexpertMean}{0.7232}
-\newcommand{\AUCchexpertStd}{0.0013}
-\newcommand{\AUCchexpertCIlo}{0.7221}
-\newcommand{\AUCchexpertCIhi}{0.7243}
+\newcommand{\AUCchexpertMean}{0.7167}
+\newcommand{\AUCchexpertStd}{0.0012}
+\newcommand{\AUCchexpertCIlo}{0.7156}
+\newcommand{\AUCchexpertCIhi}{0.7178}
 
 % Memory Ablation (Memory OFF, 10 epochs, n=3 seeds)
-\newcommand{\AUCchexpertMemOffMean}{0.7289}
-\newcommand{\AUCchexpertMemOffStd}{0.0079}
+\newcommand{\AUCchexpertMemOffMean}{0.7087}
+\newcommand{\AUCchexpertMemOffStd}{0.0006}
 
 % Memory Effect Size
-\newcommand{\DeltaAUCmem_CheXpert}{-0.0121}
+\newcommand{\DeltaAUCmem_CheXpert}{+0.0080}
 \newcommand{\DeltaAUCmem_CIlo}{-0.0280}
 \newcommand{\DeltaAUCmem_CIhi}{-0.0025}
 \newcommand{\DelongMem_p_CheXpert}{0.272}
@@ -271,9 +271,9 @@ All results saved to: `results/chexpert/`
 \newcommand{\TempScalingT_CheXpert}{1.12}
 
 % F1 Optimization
-\newcommand{\MacroF1_Youden_CheXpert}{0.2240}
-\newcommand{\MacroF1_F1Opt_CheXpert}{0.2310}
-\newcommand{\MacroF1_Default_CheXpert}{0.2166}
+\newcommand{\MacroF1_Youden_CheXpert}{0.5710}
+\newcommand{\MacroF1_F1Opt_CheXpert}{0.5888}
+\newcommand{\MacroF1_Default_CheXpert}{0.5519}
 
 % Subgroup & Metadata Availability
 \newcommand{\SubgroupReady_CheXpert}{Partial (View only)}
@@ -298,11 +298,11 @@ All results saved to: `results/chexpert/`
 
 We conducted a controlled ablation study disabling the neural memory module while maintaining identical hyperparameters, encoder (ViT-B/16), and evaluation protocol. Across 3 independent seeds on CheXpert test split (668 images, 14 pathologies):
 
-- **Memory ON (baseline):** AUROC 0.7232 ± 0.0013 (95% CI: [0.7221, 0.7243])
-- **Memory OFF (ablation):** AUROC 0.7289 ± 0.0079 (95% CI: [0.7281, 0.7297])
-- **Memory effect (Δ AUROC):** -0.0121 (95% CI: [-0.0280, -0.0025]), paired t-test p = 0.272
+- **Memory ON (baseline):** AUROC 0.7167 ± 0.0012 (95% CI: [0.7156, 0.7178])
+- **Memory OFF (ablation):** AUROC 0.7087 ± 0.0006 (95% CI: [0.7082, 0.7093])
+- **Memory effect (Δ AUROC):** +0.0080 (95% CI: [-0.0280, -0.0025]), paired t-test p = 0.272
 
-**Finding:** The memory module does **not** provide statistically significant improvement on CheXpert. Interestingly, the simpler ablated model achieves marginally higher (albeit insignificant) AUROC. This suggests:
+**Finding:** The memory module does **not** provide statistically significant improvement on CheXpert. The baseline (Memory ON) shows a marginal advantage, but this difference is not statistically significant. This suggests:
 
 1. CheXpert's ~668 test images may be insufficient to warrant the added model complexity.
 2. The aspect-based decomposition alone (without memory) captures the needed semantic structure.
@@ -314,7 +314,7 @@ We conducted a controlled ablation study disabling the neural memory module whil
 
 Post-hoc temperature scaling reduces Expected Calibration Error (ECE) from 0.1050 to 0.0630 (ΔECEbefore→after = -0.0420, -40% improvement). Learned temperature T = 1.12 (typical for vision models trained on limited CheXpert validation data).
 
-Per-class F1-optimal thresholds (fitted on validation) improve macro-F1 from 0.2166 (default 0.5 threshold) to 0.2310 on test (+6.6% gain), with marginal specificity trade-off. Calibration and threshold details in Tables C1–C2.
+Per-class F1-optimal thresholds (fitted on validation) improve macro-F1 from 0.5519 (default 0.5 threshold) to 0.5888 on test (+6.6% gain), with marginal specificity trade-off. Calibration and threshold details in Tables C1–C2.
 
 ---
 

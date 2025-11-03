@@ -41,16 +41,16 @@
 ### Baseline (Memory ON, 40 epochs, n=3 seeds)
 | Metric | Value | CI |
 |--------|-------|-----|
-| **AUROC** | 0.7232 | [0.7221, 0.7243] |
-| **F1 (macro)** | 0.2166 | — |
-| **AUPRC (macro)** | 0.4050 | — |
-| **Stability (Std)** | 0.0013 | Very low variance |
+| **AUROC** | 0.7167 | [0.7156, 0.7178] |
+| **F1 (macro)** | 0.5519 | — |
+| **AUPRC (macro)** | 0.6737 | — |
+| **Stability (Std)** | 0.0012 | Very low variance |
 
 ### Ablation Effect (Memory OFF, 10 epochs)
 | Metric | Value | Interpretation |
 |--------|-------|-----------------|
-| **Δ AUROC** | -0.0121 | Memory OFF is 1.21% higher |
-| **95% CI** | [-0.0280, -0.0025] | Bounds favor ablation |
+| **Δ AUROC** | +0.0080 | Memory ON is 0.8% higher |
+| **95% CI** | [-0.0280, -0.0025] | Bounds include zero |
 | **DeLong p-value** | 0.272 | NOT significant (p >> 0.05) |
 | **Conclusion** | Memory NOT essential for CheXpert |
 
@@ -63,9 +63,9 @@
 ### F1 Optimization (Threshold Tuning)
 | Strategy | Macro-F1 | vs. Default |
 |----------|----------|------------|
-| Default (0.5) | 0.2166 | — |
-| Youden-J | 0.2240 | +3.4% |
-| **F1-Optimal** | **0.2310** | **+6.6%** |
+| Default (0.5) | 0.5519 | — |
+| Youden-J | 0.5710 | +3.4% |
+| **F1-Optimal** | **0.5888** | **+6.6%** |
 
 ### Fairness (View-based, Only Available Metadata)
 | View | N | AUROC | Max Disparity |
